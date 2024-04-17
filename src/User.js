@@ -1,11 +1,8 @@
 import {
     Box,
-    Button,
-    ButtonGroup,
     Flex,
     HStack,
     IconButton,
-    Input,
     SkeletonText,
     Text,
   } from '@chakra-ui/react'
@@ -51,8 +48,15 @@ import {
       const response = await axios.get(
         `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=5000&type=police&key=AIzaSyBVzhfAB_XLqaayJkOSuThEdaK4vifdxAI`
       );
-  
-      setPoliceStations(response.data.results);
+      const response1 = await axios.get(
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${center.lat},${center.lng}&radius=5000&type=hospital&key=AIzaSyBVzhfAB_XLqaayJkOSuThEdaK4vifdxAI`
+      );
+      const combinedResults = [
+        ...response.data.results,
+        ...response1.data.results
+      ];
+      console.log(combinedResults);
+      setPoliceStations(combinedResults);
     };
   
   
